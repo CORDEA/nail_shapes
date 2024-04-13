@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+const roundPath = RoundPathProvider();
+
 const _bottomPaddingScale = 0.08;
 const _topPaddingScale = 0.2;
 const _horizontalPaddingScale = 0.1;

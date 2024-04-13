@@ -5,43 +5,50 @@ import 'package:nail_shapes/src/round_path_provider.dart';
 import 'package:nail_shapes/src/square_path_provider.dart';
 import 'package:nail_shapes/src/squoval_path_provider.dart';
 
-class NailShape extends StatelessWidget {
-  const NailShape({super.key, required this.type});
+class ClipNailShape extends StatelessWidget {
+  const ClipNailShape({
+    super.key,
+    required this.type,
+    required this.child,
+    this.clipBehavior = Clip.antiAlias,
+  });
 
   final NailShapeType type;
+  final Clip clipBehavior;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(painter: _NailShape(type));
+    return ClipPath(
+      clipper: _Clipper(type),
+      clipBehavior: clipBehavior,
+      child: child,
+    );
   }
 }
 
-class _NailShape extends CustomPainter {
-  _NailShape(this.type);
+class _Clipper extends CustomClipper<Path> {
+  const _Clipper(this.type);
 
   final NailShapeType type;
 
   @override
-  void paint(Canvas canvas, Size size) {
-    if (size.isEmpty) {
-      return;
-    }
-    canvas.drawColor(Colors.red, BlendMode.clear);
-    final path = switch (type) {
+  Path getClip(Size size) {
+    return switch (type) {
       NailShapeType.almond => almondPath.provide(size),
       NailShapeType.square => squarePath.provide(size),
       NailShapeType.round => roundPath.provide(size),
       NailShapeType.squoval => squovalPath.provide(size),
       NailShapeType.ballerina => throw UnimplementedError()
     };
-    canvas.drawPath(
-      path,
-      Paint()
-        ..color = Colors.red
-        ..style = PaintingStyle.stroke,
-    );
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    if (oldClipper.runtimeType != _Clipper) {
+      return true;
+    }
+    final old = oldClipper as _Clipper;
+    return old.type != type;
+  }
 }

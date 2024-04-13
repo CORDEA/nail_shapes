@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+const almondPath = AlmondPathProvider();
+
 const _bottomPaddingScale = 0.08;
 const _topPaddingScale = 0.35;
 const _horizontalPaddingScale = 0.05;

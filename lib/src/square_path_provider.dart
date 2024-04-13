@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+const squarePath = SquarePathProvider();
+
 const _bottomPaddingScale = 0.08;
 const _horizontalPaddingScale = 0.1;
 
