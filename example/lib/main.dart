@@ -29,7 +29,7 @@ class _Home extends StatelessWidget {
       body: Center(
         child: SizedBox.fromSize(
           size: const Size(200, 400),
-          child: const NailShape(),
+          child: const NailShape(type: NailShapeType.square),
         ),
       ),
     );
