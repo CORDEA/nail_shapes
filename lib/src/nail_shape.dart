@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nail_shapes/src/almond_path_provider.dart';
 import 'package:nail_shapes/src/nail_shape_type.dart';
 import 'package:nail_shapes/src/round_path_provider.dart';
 import 'package:nail_shapes/src/square_path_provider.dart';
@@ -18,6 +19,7 @@ class NailShape extends StatelessWidget {
 const _roundPath = RoundPathProvider();
 const _squarePath = SquarePathProvider();
 const _squovalPath = SquovalPathProvider();
+const _almondPath = AlmondPathProvider();
 
 class _NailShape extends CustomPainter {
   _NailShape(this.type);
@@ -31,6 +33,7 @@ class _NailShape extends CustomPainter {
     }
     canvas.drawColor(Colors.red, BlendMode.clear);
     final path = switch (type) {
+      NailShapeType.almond => _almondPath.provide(size),
       NailShapeType.square => _squarePath.provide(size),
       NailShapeType.round => _roundPath.provide(size),
       NailShapeType.squoval => _squovalPath.provide(size),
