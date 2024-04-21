@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nail_shapes/src/almond_path_provider.dart';
+import 'package:nail_shapes/src/ballerina_path_provider.dart';
 import 'package:nail_shapes/src/nail_shape_type.dart';
 import 'package:nail_shapes/src/round_path_provider.dart';
 import 'package:nail_shapes/src/square_path_provider.dart';
@@ -32,7 +33,7 @@ class _NailShape extends CustomPainter {
       NailShapeType.square => squarePath.provide(size),
       NailShapeType.round => roundPath.provide(size),
       NailShapeType.squoval => squovalPath.provide(size),
-      NailShapeType.ballerina => throw UnimplementedError()
+      NailShapeType.ballerina => ballerinaPath.provide(size),
     };
     canvas.drawPath(
       path,
