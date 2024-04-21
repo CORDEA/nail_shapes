@@ -6,26 +6,12 @@ import 'package:nail_shapes/src/round_path_provider.dart';
 import 'package:nail_shapes/src/square_path_provider.dart';
 import 'package:nail_shapes/src/squoval_path_provider.dart';
 
-class NailShape extends StatelessWidget {
-  const NailShape({
-    super.key,
-    required this.type,
-    required this.paint,
-  });
+class NailShapePainter extends CustomPainter {
+  NailShapePainter({required NailShapeType type, required Paint paint})
+      : _type = type,
+        _paint = paint;
 
-  final NailShapeType type;
-  final Paint paint;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(painter: _NailShape(type, paint));
-  }
-}
-
-class _NailShape extends CustomPainter {
-  _NailShape(this.type, this._paint);
-
-  final NailShapeType type;
+  final NailShapeType _type;
   final Paint _paint;
 
   @override
@@ -33,7 +19,7 @@ class _NailShape extends CustomPainter {
     if (size.isEmpty) {
       return;
     }
-    final path = switch (type) {
+    final path = switch (_type) {
       NailShapeType.almond => almondPath.provide(size),
       NailShapeType.square => squarePath.provide(size),
       NailShapeType.round => roundPath.provide(size),
@@ -45,7 +31,7 @@ class _NailShape extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) =>
-      oldDelegate is! _NailShape ||
-      oldDelegate.type != type ||
+      oldDelegate is! NailShapePainter ||
+      oldDelegate._type != _type ||
       oldDelegate._paint != _paint;
 }
